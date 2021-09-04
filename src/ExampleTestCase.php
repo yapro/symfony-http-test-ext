@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\BrowserKitAssertionsTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\AbstractBrowser;
 use YaPro\Helper\JsonHelper;
+use YaPro\SymfonyHttpClientExt\HttpClientJsonExtTrait;
 
 // it is very important : the class with the getHttpClient method
 class ExampleTestCase extends WebTestCase
@@ -16,6 +17,7 @@ class ExampleTestCase extends WebTestCase
     use AssertionsTrait;
     use ExtTrait;
     use BrowserKitAssertionsTrait;
+    use HttpClientJsonExtTrait;
 
     /**
      * @var KernelBrowser|AbstractBrowser|null
@@ -43,6 +45,6 @@ class ExampleTestCase extends WebTestCase
     // it is very important to make the getJsonHelper method (if you wish to use HttpClientJsonExtTrait)
     protected function getJsonHelper(): JsonHelper
     {
-        return $this->jsonHelper;
+        return self::$jsonHelper;
     }
 }

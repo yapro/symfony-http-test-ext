@@ -66,19 +66,19 @@ trait AssertionsTrait
      * @param bool         $checkForObjectIdentity
      * @param string       $message
      */
-    protected function assertJsonContains($subset, bool $checkForObjectIdentity = true, string $message = ''): void
-    {
-        if (\is_string($subset)) {
-            $subset = json_decode($subset, true, 123, JSON_THROW_ON_ERROR);
-        }
-        if (!\is_array($subset)) {
-            throw new InvalidArgumentException('Subset must be array or string (JSON array or JSON object)');
-        }
-
-        $actual = json_decode(self::$client->getResponse()->getContent(), true, 123, JSON_THROW_ON_ERROR);
-
-        static::assertArraySubset($subset, $actual, $checkForObjectIdentity, $message);
-    }
+//    protected static function assertJsonContains($subset, bool $checkForObjectIdentity = true, string $message = ''): void
+//    {
+//        if (\is_string($subset)) {
+//            $subset = json_decode($subset, true, 123, JSON_THROW_ON_ERROR);
+//        }
+//        if (!\is_array($subset)) {
+//            throw new InvalidArgumentException('Subset must be array or string (JSON array or JSON object)');
+//        }
+//
+//        $actual = json_decode(self::$client->getResponse()->getContent(), true, 123, JSON_THROW_ON_ERROR);
+//
+//        static::assertArraySubset($subset, $actual, $checkForObjectIdentity, $message);
+//    }
 
     /**
      * Asserts that the retrieved JSON is equal to $json.
@@ -116,14 +116,14 @@ trait AssertionsTrait
      *
      * @copyright Sebastian Bergmann <sebastian@phpunit.de>
      */
-    protected function assertArraySubset($subset, $array, bool $checkForObjectIdentity = false, string $message = ''): void
-    {
-        $class = 'ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Constraint\ArraySubset';
-        if (!class_exists($class)) {
-            throw new UnexpectedValueException('You need to install ApiPlatform');
-        }
-        $constraint = new $class($subset, $checkForObjectIdentity);
-
-        static::assertThat($array, $constraint, $message);
-    }
+//    protected static function assertArraySubset($subset, $array, bool $checkForObjectIdentity = false, string $message = ''): void
+//    {
+//        $class = 'ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Constraint\ArraySubset';
+//        if (!class_exists($class)) {
+//            throw new UnexpectedValueException('You need to install ApiPlatform');
+//        }
+//        $constraint = new $class($subset, $checkForObjectIdentity);
+//
+//        static::assertThat($array, $constraint, $message);
+//    }
 }
