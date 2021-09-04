@@ -12,7 +12,8 @@ use YaPro\Helper\JsonHelper;
 use YaPro\SymfonyHttpClientExt\HttpClientJsonExtTrait;
 
 // it is very important : the class with the getHttpClient method
-class ExampleTestCase extends WebTestCase
+// tip : you can use the class as an example
+class BaseTestCase extends WebTestCase
 {
     use AssertionsTrait;
     use ExtTrait;

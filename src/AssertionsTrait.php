@@ -30,7 +30,7 @@ trait AssertionsTrait
 
     protected function assertResourceIsCreated(string $message = ''): int
     {
-        self::assertSame($this->httpCodeCreated, $this->getResponseObject()->getStatusCode(), $message);
+        self::assertSame($this->httpCodeCreated, self::$client->getResponse()->getStatusCode(), $message);
 
         return $this->assertResourceIsCreatedOrUpdated();
     }
