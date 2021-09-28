@@ -15,15 +15,15 @@ trait AssertionsTrait
     protected function assertResourceIsCreatedOrUpdated(int $id = 0): int
     {
         $response = $this->getResponseAsArray();
-		self::assertTrue(isset($response['id']));
-		if (is_numeric($response['id']) && $response['id'] > 0) {
-			$resultId = filter_var($response['id'], FILTER_VALIDATE_INT);
+        self::assertTrue(isset($response['id']));
+        if (is_numeric($response['id']) && $response['id'] > 0) {
+            $resultId = filter_var($response['id'], FILTER_VALIDATE_INT);
         } elseif (is_string($response['id']) && trim($response['id']) !== '') {
-			$resultId = $response['id'];
-		} else {
-			self::assertSame('', 'id has wrong type');
-			return $id;
-		}
+            $resultId = $response['id'];
+        } else {
+            self::assertSame('', 'id has wrong type');
+            return $id;
+        }
         if ($id) {
             self::assertSame($id, $resultId);
         }
@@ -66,8 +66,8 @@ trait AssertionsTrait
      * This method delegates to static::assertArraySubset().
      *
      * @param array|string $subset
-     * @param bool         $checkForObjectIdentity
-     * @param string       $message
+     * @param bool $checkForObjectIdentity
+     * @param string $message
      */
 //    protected static function assertJsonContains($subset, bool $checkForObjectIdentity = true, string $message = ''): void
 //    {
@@ -89,7 +89,7 @@ trait AssertionsTrait
      * Both values are canonicalized before the comparison.
      *
      * @param array|string $json
-     * @param string       $message
+     * @param string $message
      */
     protected function assertJsonEquals($json, string $message = ''): void
     {
@@ -110,8 +110,8 @@ trait AssertionsTrait
      *
      * @param iterable $subset
      * @param iterable $array
-     * @param bool     $checkForObjectIdentity
-     * @param string   $message
+     * @param bool $checkForObjectIdentity
+     * @param string $message
      *
      * @copyright Rafael Dohms <rdohms@gmail.com>
      *
