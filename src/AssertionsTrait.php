@@ -15,12 +15,15 @@ trait AssertionsTrait
     protected function assertResourceIsCreatedOrUpdated(int $id = 0): int
     {
         $response = $this->getResponseAsArray();
-        self::assertTrue(
-            isset($response['result']['id']) &&
-            is_numeric($response['result']['id']) &&
-            $response['result']['id'] > 0
-        );
-        $resultId = filter_var($response['result']['id'], FILTER_VALIDATE_INT);
+		self::assertTrue(isset($response['id']));
+		if (is_numeric($response['id']) && $response['id'] > 0) {
+			$resultId = filter_var($response['id'], FILTER_VALIDATE_INT);
+        } elseif (is_string($response['id']) && trim($response['id']) !== '') {
+			$resultId = $response['id'];
+		} else {
+			self::assertSame('', 'id has wrong type');
+			return $id;
+		}
         if ($id) {
             self::assertSame($id, $resultId);
         }
