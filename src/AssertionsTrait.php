@@ -3,7 +3,6 @@
 namespace YaPro\SymfonyHttpTestExt;
 
 use InvalidArgumentException;
-use UnexpectedValueException;
 
 trait AssertionsTrait
 {
@@ -58,6 +57,13 @@ trait AssertionsTrait
     protected function assertResponseSayAccessDenied(string $message = ''): void
     {
         self::assertSame($this->httpCodeForbidden, $this->responseHttpCode, $message);
+    }
+
+    protected function assertJsonResponse($json)
+    {
+        // удаляем переносы строк и пробелы между именами полей и значениями, но не в значениях
+        $jsonAsArray = $this->getJsonHelper()->jsonDecode($json, true);
+        $this->assertSame($jsonAsArray, $this->getResponseAsArray());
     }
 
     /**
