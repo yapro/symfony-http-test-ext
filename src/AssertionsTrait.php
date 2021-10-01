@@ -63,7 +63,11 @@ trait AssertionsTrait
     {
         // удаляем переносы строк и пробелы между именами полей и значениями, но не в значениях
         $jsonAsArray = $this->getJsonHelper()->jsonDecode($json, true);
-        $this->assertSame($jsonAsArray, $this->getResponseAsArray());
+        $this->assertSame(
+            $jsonAsArray,
+            $this->getResponseAsArray(),
+            'Original response: ' . $this->getHttpClient()->getResponse()->getContent()
+        );
     }
 
     /**
