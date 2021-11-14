@@ -16,7 +16,8 @@
 
   "require": {
     "php": ">=7.1",
-    "yapro/symfony-http-client-ext": "*"
+    "yapro/symfony-http-client-ext": "*",
+    "yapro/symfony-request-to-curl-converter": "*"
   },
 
   "require-dev": {

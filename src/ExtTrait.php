@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace YaPro\SymfonyHttpTestExt;
 
+use YaPro\SymfonyRequestToCurlCommand\SymfonyRequestToCurlCommandConverter;
 use function fwrite;
 use function implode;
 use function json_decode;
@@ -25,7 +26,7 @@ trait ExtTrait
 
     protected function showCurlRequest(): void
     {
-        $curlRequest = (new RequestToCurlFormatter())->format($this->getHttpClient()->getRequest());
+        $curlRequest = (new SymfonyRequestToCurlCommandConverter())->convert($this->getHttpClient()->getRequest());
         $this->writeLn('CurlRequest: ' . $curlRequest);
     }
 
