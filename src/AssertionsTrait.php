@@ -3,7 +3,6 @@
 namespace YaPro\SymfonyHttpTestExt;
 
 use InvalidArgumentException;
-use UnexpectedValueException;
 
 trait AssertionsTrait
 {
@@ -15,12 +14,15 @@ trait AssertionsTrait
     protected function assertResourceIsCreatedOrUpdated(int $id = 0): int
     {
         $response = $this->getResponseAsArray();
-        self::assertTrue(
-            isset($response['result']['id']) &&
-            is_numeric($response['result']['id']) &&
-            $response['result']['id'] > 0
-        );
-        $resultId = filter_var($response['result']['id'], FILTER_VALIDATE_INT);
+        self::assertTrue(isset($response['id']));
+        if (is_numeric($response['id']) && $response['id'] > 0) {
+            $resultId = filter_var($response['id'], FILTER_VALIDATE_INT);
+        } elseif (is_string($response['id']) && trim($response['id']) !== '') {
+            $resultId = $response['id'];
+        } else {
+            self::assertSame('', 'id has wrong type');
+            return $id;
+        }
         if ($id) {
             self::assertSame($id, $resultId);
         }
@@ -57,14 +59,25 @@ trait AssertionsTrait
         self::assertSame($this->httpCodeForbidden, $this->responseHttpCode, $message);
     }
 
+    protected function assertJsonResponse($json)
+    {
+        // удаляем переносы строк и пробелы между именами полей и значениями, но не в значениях
+        $jsonAsArray = $this->getJsonHelper()->jsonDecode($json, true);
+        $this->assertSame(
+            $jsonAsArray,
+            $this->getResponseAsArray(),
+            'Original response: ' . $this->getHttpClient()->getResponse()->getContent()
+        );
+    }
+
     /**
      * Asserts that the retrieved JSON contains the specified subset.
      *
      * This method delegates to static::assertArraySubset().
      *
      * @param array|string $subset
-     * @param bool         $checkForObjectIdentity
-     * @param string       $message
+     * @param bool $checkForObjectIdentity
+     * @param string $message
      */
 //    protected static function assertJsonContains($subset, bool $checkForObjectIdentity = true, string $message = ''): void
 //    {
@@ -86,7 +99,7 @@ trait AssertionsTrait
      * Both values are canonicalized before the comparison.
      *
      * @param array|string $json
-     * @param string       $message
+     * @param string $message
      */
     protected function assertJsonEquals($json, string $message = ''): void
     {
@@ -107,8 +120,8 @@ trait AssertionsTrait
      *
      * @param iterable $subset
      * @param iterable $array
-     * @param bool     $checkForObjectIdentity
-     * @param string   $message
+     * @param bool $checkForObjectIdentity
+     * @param string $message
      *
      * @copyright Rafael Dohms <rdohms@gmail.com>
      *
