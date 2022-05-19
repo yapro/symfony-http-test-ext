@@ -24,7 +24,7 @@ class BaseTestCase extends WebTestCase
      * @var KernelBrowser|AbstractBrowser|null
      */
     protected static KernelBrowser $client;
-    private static JsonHelper $jsonHelper;
+    protected static JsonHelper $jsonHelper;
 
     public static function setUpBeforeClass(): void
     {
