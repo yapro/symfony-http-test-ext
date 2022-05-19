@@ -7,6 +7,15 @@ How to use
 ---
 Create a class with the getHttpClient method, example: src/ExampleTestCase.php
 
+What inside
+---
+When you write "YourTest extends \YaPro\SymfonyHttpTestExt\BaseTestCase" you will get the function:
+
+- $this->getHttpClient() - for working with http client
+- $this->getJsonHelper() - for working with json
+- $this->assertXXX() - for working with assert, example: assertJsonResponse($json)
+- etc: [AssertionsTrait](src/AssertionsTrait.php), [ExtTrait](src/ExtTrait.php)
+
 Useful information
 --
 * Доступ к внутренним объектам - https://symfony.com/doc/current/testing.html#accessing-internal-objects
