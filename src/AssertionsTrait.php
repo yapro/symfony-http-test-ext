@@ -11,7 +11,7 @@ trait AssertionsTrait
     protected int $httpCodeBadRequest = 400;
     protected int $httpCodeForbidden = 403;
 
-    protected function assertResourceIsCreatedOrUpdated(int $id = 0): int
+    protected function assertResourceIsCreatedOrUpdated(int $id = 0)
     {
         $response = $this->getResponseAsArray();
         self::assertTrue(isset($response['id']));
@@ -30,14 +30,14 @@ trait AssertionsTrait
         return $resultId;
     }
 
-    protected function assertResourceIsCreated(string $message = ''): int
+    protected function assertResourceIsCreated(string $message = '')
     {
         self::assertSame($this->httpCodeCreated, self::$client->getResponse()->getStatusCode(), $message);
 
         return $this->assertResourceIsCreatedOrUpdated();
     }
 
-    protected function assertResourceIsUpdated(int $id = 0, string $message = ''): int
+    protected function assertResourceIsUpdated(int $id = 0, string $message = '')
     {
         self::assertResponseIsSuccessful($message);
 
