@@ -61,7 +61,6 @@ trait AssertionsTrait
 
     protected function assertJsonResponse($json)
     {
-        echo self::$client->getResponse()->getContent();
         // удаляем переносы строк и пробелы между именами полей и значениями, но не в значениях
         $jsonAsArray = self::$jsonHelper->jsonDecode($json, true);
         $this->assertSame(
